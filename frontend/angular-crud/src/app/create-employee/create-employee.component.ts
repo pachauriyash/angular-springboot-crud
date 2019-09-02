@@ -1,7 +1,7 @@
 import { EmployeeService } from '../employee.service';
 import { Employee } from '../employee';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-employee',
@@ -9,29 +9,38 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent implements OnInit {
-	employee: Employee = new Employee();
-	submitted = false;
+	employee: Employee;
+	id : number;
 
   constructor(private employeeService: EmployeeService,
-    private router: Router) { }
+    private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-  }
-  
-  newEmployee(): void {
-    this.submitted = false;
+    
+    this.id = this.route.snapshot.params['id'];
+    
     this.employee = new Employee();
+    
+    if(this.id!=-1) {
+      this.employeeService.getEmployee(this.id)
+          .subscribe (
+            data => this.employee = data, error => console.log(error)
+          );
+    }
   }
-  
+
   save() {
-    this.employeeService.createEmployee(this.employee)
-      .subscribe(data => console.log(data), error => console.log(error));
-    this.employee = new Employee();
-    this.gotoList();
+    if(this.id == -1) { //=== ==
+      this.employeeService.createEmployee(this.employee)
+		.subscribe(data => console.log(data), error => console.log(error));
+    } else {
+      this.employeeService.updateEmployee(this.id, this.employee)
+		.subscribe(data => console.log(data), error => console.log(error));
+    }
+	this.gotoList();
   }
 
   onSubmit() {
-    this.submitted = true;
     this.save();    
   }
 

@@ -74,7 +74,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/employees/{id}")
-	public ResponseEntity<Employee> getEmployees(@PathVariable("id") Integer id)
+	public ResponseEntity<Employee> getEmployee(@PathVariable("id") Integer id)
 	{
 		System.out.println("Getting employee");
 		Optional<Employee> employeeData = repository.findById(id);
