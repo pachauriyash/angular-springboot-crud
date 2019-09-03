@@ -31,7 +31,7 @@ public class EmployeeController {
 	@GetMapping("/employees")
 	public List<Employee> getAllEmployees()
 	{
-		System.out.println("Getting all employees..");
+		System.out.println("Getting all employees...");
 		List<Employee> employees = new ArrayList<Employee>();
 		repository.findAll().forEach(employees::add);
 		return employees;
@@ -87,5 +87,13 @@ public class EmployeeController {
 		{
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@GetMapping("/employees/search/{salary}")
+	public List<Employee> searchEmployees(@PathVariable("salary") Double salary)
+	{
+		System.out.println("Searching...");
+		List<Employee> employees = repository.findBySalary(salary);
+		return employees;
 	}
 }
