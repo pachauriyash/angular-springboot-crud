@@ -1,6 +1,5 @@
 package com.angular.springboot.crud.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +31,8 @@ public class EmployeeController {
 	public List<Employee> getAllEmployees()
 	{
 		System.out.println("Getting all employees...");
-		List<Employee> employees = new ArrayList<Employee>();
-		repository.findAll().forEach(employees::add);
+		List<Employee> employees = repository.findAll();
+		//repository.findAll().forEach(employees::add);
 		return employees;
 	}
 	
@@ -46,18 +45,23 @@ public class EmployeeController {
 	}
 	
 	@DeleteMapping("/employees/{id}")
-	public ResponseEntity<String> deleteEmployee(@PathVariable("id") Integer id)
+	public ResponseEntity<?> deleteEmployee(@PathVariable("id") Integer id)
 	{
 		System.out.println("Deleting Employee");
-		repository.deleteById(id);
-		return new ResponseEntity<>("Employee has been deleted!", HttpStatus.OK);
+//		repository.deleteById(id);
+//		return new ResponseEntity<>("Employee has been deleted!", HttpStatus.OK);
+		return repository.findById(id)
+                .map(employee -> {
+                	repository.deleteById(id);
+                    return ResponseEntity.ok().build();
+                }).orElse(ResponseEntity.notFound().build());
 	}
 	
 	@PutMapping("/employees/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable("id") Integer id, @RequestBody Employee employee)
 	{
 		System.out.println("Updating Employee...");
-		Optional<Employee> employeeData = repository.findById(id);
+		/*Optional<Employee> employeeData = repository.findById(id);
 		
 		if(employeeData.isPresent())
 		{
@@ -70,14 +74,22 @@ public class EmployeeController {
 		else
 		{
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		}*/
+		return repository.findById(id)
+                .map(employeeData -> {
+                	employeeData.setFullName(employee.getFullName());
+                	employeeData.setDesignation(employee.getDesignation());
+                	employeeData.setSalary(employee.getSalary());
+                	Employee updatedEmployee = repository.save(employeeData);
+                    return ResponseEntity.ok().body(updatedEmployee);
+                }).orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/employees/{id}")
 	public ResponseEntity<Employee> getEmployee(@PathVariable("id") Integer id)
 	{
 		System.out.println("Getting employee");
-		Optional<Employee> employeeData = repository.findById(id);
+		/*Optional<Employee> employeeData = repository.findById(id);
 		if(employeeData.isPresent())
 		{
 			Employee employee = employeeData.get();
@@ -86,7 +98,10 @@ public class EmployeeController {
 		else
 		{
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		}*/
+		return repository.findById(id)
+                .map(employee -> ResponseEntity.ok().body(employee))
+                .orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/employees/search/{salary}")
