@@ -1,9 +1,9 @@
-<h3>Create Employee</h3>
-<div style="width: 400px;">
-<div class="alert alert-warning" *ngIf="empForm.dirty && empForm.invalid">Enter valid values</div>
-  <div class="alert alert-warning" *ngIf="empForm.dirty && joiningDate.invalid">Enter valid Joining Date</div>
-  <div class="alert alert-warning" *ngIf="empForm.dirty && designation.invalid">Enter atleast 5 characters in Designation</div>
-
+<h3 style="text-align:center;">Create Employee</h3>
+<div class="container" style="width: 400px;">
+<!--<div class="alert alert-warning" *ngIf="empForm.dirty && empForm.invalid">Enter valid values</div>
+  
+  <div class="alert alert-warning" *ngIf="empForm.dirty && designation.invalid">Enter atleast 5 characters in Designation</div>-->
+<div class="alert alert-warning" *ngIf="empForm.dirty && joiningDate.invalid">Enter valid Joining Date</div>
   <form (ngSubmit)="!empForm.invalid && onSubmit()" #empForm="ngForm">
     <div class="form-group">
       <label for="name">Name</label>
@@ -12,7 +12,7 @@
 
     <div class="form-group">
       <label for="name">Designation</label>
-      <input type="text" class="form-control" id="designation" required [(ngModel)]="employee.designation" name="designation" minlength="5" #designation="ngModel">
+      <input type="text" class="form-control" id="designation" required [(ngModel)]="employee.designation" name="designation" #designation="ngModel">
     </div>
 
     <div class="form-group">

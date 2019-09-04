@@ -34,13 +34,15 @@ export class CreateEmployeeComponent implements OnInit {
 	{ 
       this.employeeService.createEmployee(this.employee)
 		.subscribe(data => console.log(data), error => console.log(error));
+		this.router.navigate(['/employees']);
     } 
 	else 
 	{
       this.employeeService.updateEmployee(this.id, this.employee)
 		.subscribe(data => console.log(data), error => console.log(error));
+		this.router.navigate(['/employees']);
     }
-	this.gotoList();
+	//this.gotoList();
   }
 
   onSubmit() {
