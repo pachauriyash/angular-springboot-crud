@@ -1,19 +1,28 @@
 <h3>Create Employee</h3>
 <div style="width: 400px;">
-  <form (ngSubmit)="onSubmit()">
+<div class="alert alert-warning" *ngIf="empForm.dirty && empForm.invalid">Enter valid values</div>
+  <div class="alert alert-warning" *ngIf="empForm.dirty && joiningDate.invalid">Enter valid Joining Date</div>
+  <div class="alert alert-warning" *ngIf="empForm.dirty && designation.invalid">Enter atleast 5 characters in Designation</div>
+
+  <form (ngSubmit)="!empForm.invalid && onSubmit()" #empForm="ngForm">
     <div class="form-group">
       <label for="name">Name</label>
-      <input type="text" class="form-control" id="fullName" required [(ngModel)]="employee.fullName" name="fullName">
+      <input type="text" class="form-control" id="fullName" required [(ngModel)]="employee.fullName" name="fullName" #fullName="ngModel">
     </div>
 
     <div class="form-group">
       <label for="name">Designation</label>
-      <input type="text" class="form-control" id="designation" required [(ngModel)]="employee.designation" name="designation">
+      <input type="text" class="form-control" id="designation" required [(ngModel)]="employee.designation" name="designation" minlength="5" #designation="ngModel">
     </div>
 
     <div class="form-group">
       <label for="name">Salary</label>
-      <input type="text" class="form-control" id="salary" required [(ngModel)]="employee.salary" name="salary">
+      <input type="text" class="form-control" id="salary" required [(ngModel)]="employee.salary" name="salary" #salary="ngModel">
+    </div>
+	
+	<div class="form-group">
+      <label for="name">Joining Date</label>
+      <input type="date" class="form-control" id="joiningDate" required [ngModel]="employee.joiningDate | date:'yyyy-MM-dd' " name="joiningDate" (ngModelChange)="employee.joiningDate = $event" #joiningDate="ngModel">
     </div>
 
     <button type="submit" class="btn btn-success">Submit</button>

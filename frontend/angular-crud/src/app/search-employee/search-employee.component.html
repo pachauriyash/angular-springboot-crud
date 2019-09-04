@@ -19,6 +19,7 @@
           <th>Name</th>
           <th>Designation</th>
           <th>Salary</th>
+		  <th>Joining Date</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -27,6 +28,7 @@
           <td>{{employee.fullName}}</td>
           <td>{{employee.designation}}</td>
           <td>{{employee.salary}}</td>
+		  <td>{{employee.joiningDate | date}}</td>
         </tr>
       </tbody>
     </table>

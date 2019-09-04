@@ -3,4 +3,5 @@ export class Employee {
     fullName: string;
     designation: string;
     salary: number;
+	joiningDate: Date;
 }

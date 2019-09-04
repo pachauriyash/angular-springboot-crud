@@ -1,5 +1,7 @@
 package com.angular.springboot.crud.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +15,14 @@ public class Employee {
 	private String fullName;
 	private String designation;
 	private double salary;
+	private Date joiningDate;
 	
+	public Date getJoiningDate() {
+		return joiningDate;
+	}
+	public void setJoiningDate(Date joiningDate) {
+		this.joiningDate = joiningDate;
+	}
 	public Integer getId() {
 		return id;
 	}

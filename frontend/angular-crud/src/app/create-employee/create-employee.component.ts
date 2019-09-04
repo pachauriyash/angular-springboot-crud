@@ -30,10 +30,13 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   save() {
-    if(this.id == -1) { //=== ==
+    if(this.id == -1) 
+	{ 
       this.employeeService.createEmployee(this.employee)
 		.subscribe(data => console.log(data), error => console.log(error));
-    } else {
+    } 
+	else 
+	{
       this.employeeService.updateEmployee(this.id, this.employee)
 		.subscribe(data => console.log(data), error => console.log(error));
     }

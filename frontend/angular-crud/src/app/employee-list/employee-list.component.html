@@ -9,6 +9,7 @@
           <th>Name</th>
           <th>Designation</th>
           <th>Salary</th>
+		  <th>Joining Date</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -17,6 +18,7 @@
           <td>{{employee.fullName}}</td>
           <td>{{employee.designation}}</td>
           <td>{{employee.salary}}</td>
+		  <td>{{employee.joiningDate | date}}</td>
           <td><button (click)="deleteEmployee(employee.id)" class="btn btn-danger">Delete</button>
               <button (click)="employeeDetails(employee.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
 			  <button (click)="updateEmployee(employee.id)" class="btn btn-success" style="margin-left: 10px">Update</button>
