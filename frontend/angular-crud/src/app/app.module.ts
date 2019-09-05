@@ -10,6 +10,7 @@ import { EmployeeDetailsComponent } from './employee-details/employee-details.co
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchEmployeeComponent } from './search-employee/search-employee.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SearchEmployeeComponent } from './search-employee/search-employee.compo
     BrowserModule,
 	AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+	ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
